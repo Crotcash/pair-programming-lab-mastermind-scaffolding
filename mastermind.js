@@ -1,4 +1,5 @@
 // https://jsdoc.app
+//Nomhle and Limpho 
 /**
  * @function checkGuess
  * Checks guess for "mastermind" game against solution
@@ -18,20 +19,30 @@
  *
  */
 function checkGuess(guess, solution) {
-  // TODO: complete this function
-  // first determine how many characters total the two strings have in common
-  // This may help:
-  // https://github.com/bonnie/udemy-ENZYME/blob/master/context-base/src/helpers/index.js
-  //
-  // then determine how many of those characters are in the right place
-  // hint: iterate through characters of guess and compare to character
-  // in the same position in solution
-  //
-  // finally, return a string in the format
-  // "count of correct characters in the right place"-"count of correct
-  // characters not in the right place"
-  // for example, "2-1"
-  //
+  let exact = 0; // correct numbers in the correct position
+  let partial = 0; // correct numbers in the incorrect position
+
+  const unmatchedGuess = [];
+  const unmatchedSolution = [];
+
+  //correct number in correct position
+  for (let i = 0; i < guess.length; i++) {
+    if (guess[i] === solution[i]) {
+      exact++;
+    } else {
+      unmatchedGuess.push(guess[i]);
+      unmatchedSolution.push(solution[i]);
+    }
+  }
+  // correct number in incorrect position
+  unmatchedGuess.forEach((num) => {
+    const index = unmatchedSolution.indexOf(num);
+    if (index !== -1) {
+      partial++;
+      unmatchedSolution.splice(index, 1); // remove the matched number
+    }
+  });
+  return `${exact}-${partial}`;
 }
 
 // https://jsdoc.app
