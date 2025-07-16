@@ -1,5 +1,5 @@
 // https://jsdoc.app
-//Nomhle and Limpho 
+// Nomhle and Limpho
 /**
  * @function checkGuess
  * Checks guess for "mastermind" game against solution
@@ -19,30 +19,30 @@
  *
  */
 function checkGuess(guess, solution) {
-  let exact = 0; // correct numbers in the correct position
-  let partial = 0; // correct numbers in the incorrect position
+  let exactMatch = 0; // correct numbers in the correct position
+  let correctValueWrongPosition = 0;
 
-  const unmatchedGuess = [];
+  const remainingGuesses = [];
   const unmatchedSolution = [];
 
-  //correct number in correct position
-  for (let i = 0; i < guess.length; i++) {
+  // correct number in correct position
+  for (let i = 0; i < guess.length; i += 1) {
     if (guess[i] === solution[i]) {
-      exact++;
+      exactMatch += 1;
     } else {
-      unmatchedGuess.push(guess[i]);
+      remainingGuesses.push(guess[i]);
       unmatchedSolution.push(solution[i]);
     }
   }
   // correct number in incorrect position
-  unmatchedGuess.forEach((num) => {
-    const index = unmatchedSolution.indexOf(num);
-    if (index !== -1) {
-      partial++;
-      unmatchedSolution.splice(index, 1); // remove the matched number
+  remainingGuesses.forEach((number) => {
+    const matchIndex = unmatchedSolution.indexOf(number);
+    if (matchIndex !== -1) {
+      correctValueWrongPosition += 1; // found a match
+      unmatchedSolution.splice(matchIndex, 1); // remove the matched number
     }
   });
-  return `${exact}-${partial}`;
+  return `${exactMatch}-${correctValueWrongPosition}`;
 }
 
 // https://jsdoc.app
